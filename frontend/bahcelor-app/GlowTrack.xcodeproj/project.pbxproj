@@ -1,0 +1,555 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		EBF3C8BF2D9D728D004867D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBF3C8A42D9D728B004867D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EBF3C8AB2D9D728B004867D5;
+			remoteInfo = GlowTrack;
+		};
+		EBF3C8C92D9D728D004867D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBF3C8A42D9D728B004867D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EBF3C8AB2D9D728B004867D5;
+			remoteInfo = GlowTrack;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EBF3C8AC2D9D728B004867D5 /* GlowTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlowTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBF3C8BE2D9D728D004867D5 /* GlowTrackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowTrackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBF3C8C82D9D728D004867D5 /* GlowTrackUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlowTrackUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		EBF3C8AE2D9D728B004867D5 /* GlowTrack */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GlowTrack;
+			sourceTree = "<group>";
+		};
+		EBF3C8C12D9D728D004867D5 /* GlowTrackTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GlowTrackTests;
+			sourceTree = "<group>";
+		};
+		EBF3C8CB2D9D728D004867D5 /* GlowTrackUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GlowTrackUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EBF3C8A92D9D728B004867D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBF3C8BB2D9D728D004867D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBF3C8C52D9D728D004867D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EBF3C8A32D9D728B004867D5 = {
+			isa = PBXGroup;
+			children = (
+				EBF3C8AE2D9D728B004867D5 /* GlowTrack */,
+				EBF3C8C12D9D728D004867D5 /* GlowTrackTests */,
+				EBF3C8CB2D9D728D004867D5 /* GlowTrackUITests */,
+				EBF3C8AD2D9D728B004867D5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EBF3C8AD2D9D728B004867D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EBF3C8AC2D9D728B004867D5 /* GlowTrack.app */,
+				EBF3C8BE2D9D728D004867D5 /* GlowTrackTests.xctest */,
+				EBF3C8C82D9D728D004867D5 /* GlowTrackUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EBF3C8AB2D9D728B004867D5 /* GlowTrack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBF3C8D22D9D728D004867D5 /* Build configuration list for PBXNativeTarget "GlowTrack" */;
+			buildPhases = (
+				EBF3C8A82D9D728B004867D5 /* Sources */,
+				EBF3C8A92D9D728B004867D5 /* Frameworks */,
+				EBF3C8AA2D9D728B004867D5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				EBF3C8AE2D9D728B004867D5 /* GlowTrack */,
+			);
+			name = GlowTrack;
+			packageProductDependencies = (
+			);
+			productName = GlowTrack;
+			productReference = EBF3C8AC2D9D728B004867D5 /* GlowTrack.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EBF3C8BD2D9D728D004867D5 /* GlowTrackTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBF3C8D52D9D728D004867D5 /* Build configuration list for PBXNativeTarget "GlowTrackTests" */;
+			buildPhases = (
+				EBF3C8BA2D9D728D004867D5 /* Sources */,
+				EBF3C8BB2D9D728D004867D5 /* Frameworks */,
+				EBF3C8BC2D9D728D004867D5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EBF3C8C02D9D728D004867D5 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EBF3C8C12D9D728D004867D5 /* GlowTrackTests */,
+			);
+			name = GlowTrackTests;
+			packageProductDependencies = (
+			);
+			productName = GlowTrackTests;
+			productReference = EBF3C8BE2D9D728D004867D5 /* GlowTrackTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EBF3C8C72D9D728D004867D5 /* GlowTrackUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBF3C8D82D9D728D004867D5 /* Build configuration list for PBXNativeTarget "GlowTrackUITests" */;
+			buildPhases = (
+				EBF3C8C42D9D728D004867D5 /* Sources */,
+				EBF3C8C52D9D728D004867D5 /* Frameworks */,
+				EBF3C8C62D9D728D004867D5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EBF3C8CA2D9D728D004867D5 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EBF3C8CB2D9D728D004867D5 /* GlowTrackUITests */,
+			);
+			name = GlowTrackUITests;
+			packageProductDependencies = (
+			);
+			productName = GlowTrackUITests;
+			productReference = EBF3C8C82D9D728D004867D5 /* GlowTrackUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EBF3C8A42D9D728B004867D5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					EBF3C8AB2D9D728B004867D5 = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					EBF3C8BD2D9D728D004867D5 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = EBF3C8AB2D9D728B004867D5;
+					};
+					EBF3C8C72D9D728D004867D5 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = EBF3C8AB2D9D728B004867D5;
+					};
+				};
+			};
+			buildConfigurationList = EBF3C8A72D9D728B004867D5 /* Build configuration list for PBXProject "GlowTrack" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EBF3C8A32D9D728B004867D5;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = EBF3C8AD2D9D728B004867D5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EBF3C8AB2D9D728B004867D5 /* GlowTrack */,
+				EBF3C8BD2D9D728D004867D5 /* GlowTrackTests */,
+				EBF3C8C72D9D728D004867D5 /* GlowTrackUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EBF3C8AA2D9D728B004867D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBF3C8BC2D9D728D004867D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBF3C8C62D9D728D004867D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EBF3C8A82D9D728B004867D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBF3C8BA2D9D728D004867D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBF3C8C42D9D728D004867D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EBF3C8C02D9D728D004867D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EBF3C8AB2D9D728B004867D5 /* GlowTrack */;
+			targetProxy = EBF3C8BF2D9D728D004867D5 /* PBXContainerItemProxy */;
+		};
+		EBF3C8CA2D9D728D004867D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EBF3C8AB2D9D728B004867D5 /* GlowTrack */;
+			targetProxy = EBF3C8C92D9D728D004867D5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		EBF3C8D02D9D728D004867D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EBF3C8D12D9D728D004867D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EBF3C8D32D9D728D004867D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teatatoiu.GlowTrack;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EBF3C8D42D9D728D004867D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teatatoiu.GlowTrack;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EBF3C8D62D9D728D004867D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teatatoiu.GlowTrackTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GlowTrack.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GlowTrack";
+			};
+			name = Debug;
+		};
+		EBF3C8D72D9D728D004867D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teatatoiu.GlowTrackTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GlowTrack.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GlowTrack";
+			};
+			name = Release;
+		};
+		EBF3C8D92D9D728D004867D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teatatoiu.GlowTrackUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GlowTrack;
+			};
+			name = Debug;
+		};
+		EBF3C8DA2D9D728D004867D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teatatoiu.GlowTrackUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GlowTrack;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EBF3C8A72D9D728B004867D5 /* Build configuration list for PBXProject "GlowTrack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBF3C8D02D9D728D004867D5 /* Debug */,
+				EBF3C8D12D9D728D004867D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EBF3C8D22D9D728D004867D5 /* Build configuration list for PBXNativeTarget "GlowTrack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBF3C8D32D9D728D004867D5 /* Debug */,
+				EBF3C8D42D9D728D004867D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EBF3C8D52D9D728D004867D5 /* Build configuration list for PBXNativeTarget "GlowTrackTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBF3C8D62D9D728D004867D5 /* Debug */,
+				EBF3C8D72D9D728D004867D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EBF3C8D82D9D728D004867D5 /* Build configuration list for PBXNativeTarget "GlowTrackUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBF3C8D92D9D728D004867D5 /* Debug */,
+				EBF3C8DA2D9D728D004867D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EBF3C8A42D9D728B004867D5 /* Project object */;
+}

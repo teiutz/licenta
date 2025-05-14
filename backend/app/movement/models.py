@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, Float, Date, String, Numeric, Boolean, DateTime, func, ForeignKey, UniqueConstraint, PrimaryKeyConstraint
 from ..database import Base
 from sqlalchemy.orm import relationship
-
+# SCHIMBARIII CU MAP
 class Workout(Base):
     __tablename__ = "workouts"
 

@@ -1,48 +1,50 @@
-from sqlalchemy import Column, Integer, Float, Date, String, Numeric, Boolean, DateTime, func, ForeignKey, UniqueConstraint, PrimaryKeyConstraint
+from sqlalchemy import Column, Integer, Float, Date, String, Numeric, Boolean, DateTime, func, ForeignKey,PrimaryKeyConstraint, UniqueConstraint
+from decimal import Decimal
 from ..database import Base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped
+from sqlalchemy.orm import mapped_column
+from sqlalchemy import DateTime
+from datetime import datetime
+from typing import List, Optional
 
 class UserFoodFrequency(Base):
     __tablename__ = "user_foods_frequencies"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     
-    user_id = Column(Integer, ForeignKey("users.id"))
-    food_id = Column(Integer, ForeignKey("foods.id"))
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), primary_key=True)
+    food_id: Mapped[int] = mapped_column(Integer, ForeignKey("foods.id"), primary_key=True)
 
-    count = Column(Integer, nullable=False)
 
-    __table_args__ = (PrimaryKeyConstraint('user_id', 'food_id'))
+    count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+
 
 class UserTagFrequency(Base):
     __tablename__ = "user_tags_frequencies"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     
-    user_id = Column(Integer, ForeignKey("users.id"))
-    tag_id = Column(Integer, ForeignKey("tags.id"))
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
+    tag_id: Mapped[int] = mapped_column(Integer, ForeignKey("tags.id"))
 
-    count = Column(Integer, nullable=False)
-
-    __table_args__ = (PrimaryKeyConstraint('user_id', 'tag_id'))
+    count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
 class UserMealFrequency(Base):
     __tablename__ = "user_meals_frequencies"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     
-    user_id = Column(Integer, ForeignKey("users.id"))
-    meal_id = Column(Integer, ForeignKey("meals.id"))
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
+    meal_id: Mapped[int] = mapped_column(Integer, ForeignKey("meals.id"))
 
-    count = Column(Integer, nullable=False)
+    count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
-    __table_args__ = (PrimaryKeyConstraint('user_id', 'meal_id'))
 
 class UserFoodPreference(Base):
     __tablename__ = "user_meals_frequencies"
 
-    id = Column(Integer, primary_key=True, index=True)
-    food_id = Column(Integer, ForeignKey("foods.id"))
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    food_id: Mapped[int] = mapped_column(Integer, ForeignKey("foods.id"))
 
-    preference = Column(Integer, nullable=False, default=0) # like = 1, neutral = 0, dislike = -1
+    preference: Mapped[int] = mapped_column(Integer, nullable=False, default=0) # like = 1, neutral = 0, dislike = -1
 

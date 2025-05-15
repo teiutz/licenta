@@ -1,107 +1,150 @@
 from sqlalchemy import Column, Integer, Date, String, Numeric, Boolean, DateTime, func, ForeignKey, UniqueConstraint
+from decimal import Decimal
 from ..database import Base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped
+from sqlalchemy.orm import mapped_column
+from sqlalchemy import DateTime
+from datetime import datetime
+from typing import List
+from ..common import Diet, Allergy
+from ..goals import Goal
+from ..foods import FoodItem
+from ..goals import NutritionGoals, MovementGoals
+from ..meals import Meal
+from ..pantry import PantryItemEntry
+from ..stats import DailyNutritionStats
 
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, nullable=False)
-    email = Column(String, unique=True, index=True)
-    hashed_password = Column(String, nullable=False)
-    profile_image_url = Column(String)
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    username: Mapped[str] = mapped_column(nullable=False)
+    email: Mapped[str] = mapped_column(unique=True, index=True)
+    hashed_password: Mapped[str] = mapped_column(nullable=False)
+    profile_image_url: Mapped[str] = mapped_column(nullable=True)
 
-    #relationships:
-    user_details = relationship("UserDetails", backref="user", uselist=False)
-    goals = relationship("UserGoals", backref="user", uselist=False)
-    measurements = relationship("MeasurementEntry", backref="user")
-    measurement_blueprints = relationship("MeasurementBlueprint", backref="user")
-    diets = relationship("Diet", backref="user")
-    allergies = relationship("UserAllergy", backref="user")
+    user_details: Mapped["UserDetails"] = relationship(back_populates="user")
+    user_goals: Mapped["UserGoal"] = relationship(back_populates="user")
+    user_diets: Mapped[List["UserDiet"]] = relationship(back_populates="user")
+    user_allergies: Mapped[List["UserAllergy"]] = relationship(back_populates="user")
+    user_created_food_items: Mapped[List["FoodItem"]] = relationship(back_populates="user")
+    user_created_meals: Mapped[List["Meal"]] = relationship(back_populates="user")
+    nutrition_goals: Mapped["NutritionGoals"] = relationship(back_populates="user")
+    movement_goals: Mapped["MovementGoals"]
+    user_daily_nutrition_stats: Mapped[List["DailyNutritionStats"]] = relationship(back_populates="user")
 
 
-    created_at = Column(DateTime, default=func.now(), nullable=False)
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
+    pantry_item_entries: Mapped[List["PantryItemEntry"]] = relationship(back_populates="pantry_item")
+
+
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
 class UserDetails(Base):
     __tablename__ = "user_details"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, unique=True)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    birthdate = Column(Date, nullable=False)
-    created_at = Column(DateTime, default=func.now(), nullable=False)
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False, unique=True)
+    first_name: Mapped[str] = mapped_column(nullable=False)
+    last_name: Mapped[str] = mapped_column(nullable=False)
+    birthdate: Mapped[datetime] = mapped_column(nullable=False)
 
-    user = relationship("User", back_populates="user_details", cascade="all, delete-orphan")
+    user: Mapped["User"] = relationship(back_populates="user_details", single_parent=True)
 
-class UserGoals(Base):
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
+
+    __table_args__ = (UniqueConstraint("user_id"))
+
+class UserGoal(Base):
     __tablename__ = "user_goals"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    goal_id = Column(Integer, ForeignKey("goals.id"))
-    goal_weight = Column(Numeric(5, 1), nullable=False) 
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False, unique=True)
+    goal_id: Mapped[int] = mapped_column(ForeignKey("goals.id"))
+
+    goal_weight: Mapped[Decimal] = mapped_column(Numeric(5, 1), nullable=False)
+    is_active: Mapped[bool] = mapped_column(nullable=False, default=False)
     
+    user: Mapped["User"] = relationship(back_populates="user_goals")
+    goal: Mapped["Goal"] = relationship(back_populates="user_goals")
 
-    created_at = Column(DateTime, default=func.now(), nullable=False)
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
-    #i want to keep track of goals history
-    #one active goal at a tie
-
-    __table_args__ = (
-        UniqueConstraint("user_id", "is_active", name="only_one_active_goal_per_user"),
-    )
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
 class UserDiet(Base):
     __tablename__ = "user_diet"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    diet_id = Column(Integer, ForeignKey("diets.id"), nullable=False)
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    diet_id: Mapped[int] = mapped_column(ForeignKey("diets.id"), nullable=False)
+    is_active: Mapped[bool] = mapped_column(nullable=False, default=False)
 
-    created_at = Column(DateTime, default=func.now(), nullable=False)
+    user: Mapped["User"] = relationship(back_populates="user_diets")
+    diet: Mapped["Diet"] = relationship(back_populates="user_diets")
 
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
+
+    __table_args__ = (
+    UniqueConstraint("user_id", "is_active", name="only_one_active_diet_per_user"),
+)
 
 class UserAllergy(Base):
-    __tablename__ = "user_allergies"
+    __tablename__ = "user_allergy"
 
-    allergy_id = Column(Integer, ForeignKey("allergies.id"))
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    allergy_id: Mapped[int] = mapped_column(ForeignKey("allergies.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    is_active: Mapped[bool] = mapped_column(nullable=False, default=False)
 
-    created_at = Column(DateTime, default=func.now(), nullable=False)
+    user: Mapped["User"] = relationship(back_populates="user_allergies")
+    allergy: Mapped["Allergy"] = relationship(back_populates="user_allergies")
 
+    created_at: Mapped[datetime] = mapped_column(nullable=False, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(nullable=False, default=func.now(), onupdate=func.now())
 
 class MeasurementBlueprint(Base):
     __tablename__ = "measurement_blueprint"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    name = Column(String, nullable=False)
-    unit = Column(String, nullable=False)
-    is_custom = Column(Boolean, nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=True)
+   
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    unit: Mapped[str] = mapped_column(String, nullable=False)
 
-    entries = relationship("MeasurementEntry", backref="blueprint")
+    entries: Mapped[List["MeasurementEntry"]] = relationship(backref="blueprint")
 
-    created_at = Column(DateTime, default=func.now(), nullable=False)
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
 class MeasurementEntry(Base):
     __tablename__ = "measurement_entry"
 
-    id = Column(Integer, primary_key=True, index=True)
-    type_id = Column(Integer, ForeignKey("measurement_blueprint.id"), nullable=False)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    value = Column(Numeric(5,2), nullable=False)
-    date = Column(DateTime, default=func.now(), nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+
+    blueprint_id: Mapped[int] = mapped_column(Integer, ForeignKey("measurement_blueprint.id"), nullable=False)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
+
+    value: Mapped[Decimal] = mapped_column(Numeric(5,2), nullable=False)
+    date: Mapped[int] = mapped_column(DateTime, default=func.now(), nullable=False)
+
+    blueprint: Mapped["MeasurementBlueprint"] = relationship(back_populates="entries")
+
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
 class UserSettings(Base):
     __tablename__ = "user_settings"
 
-    id = Column(Integer, primary_key=True, index=True)
-    dark_mode = Column(Boolean, nullable=False, default=False)
-    notifications_enabled = Column(Boolean, nullable=False, default=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    dark_mode: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    notifications_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
 
     

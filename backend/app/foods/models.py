@@ -6,11 +6,11 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy import DateTime
 from datetime import datetime
 from typing import List, Optional
-from ..common import Tag, Allergy, Serving, Restaurant
-from ..users import User
-from ..meals import MealIngredient
-from ..pantry import PantryItem
-
+#from ..common import Tag, Allergy, Serving, Restaurant
+#from ..users import User
+#from ..meals import MealIngredient
+#from ..pantry import PantryItem
+#from ..entries import FoodEntry
 class FoodItem(Base):
     __tablename__ = "food_items"
 
@@ -19,12 +19,12 @@ class FoodItem(Base):
     brand: Mapped[str] = mapped_column(String, nullable=True)
 
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=True)
-    user: Mapped[Optional["User"]] = relationship(back_populates="user_created_food_items", single_parent=True)
+    user: Mapped[Optional["User"]] = relationship("User", back_populates="user_created_food_items", single_parent=True)
 
     category_id: Mapped[int] = mapped_column(Integer, ForeignKey("food_categories.id"))
-    category = relationship("FoodCategory", back_populates="food_items", single_parent=True)
+    category: Mapped["FoodCategory"] = relationship("FoodCategory", back_populates="food_items", single_parent=True)
     
-    food_vitamins = relationship(back_populates="food_item", uselist=False, cascade="all, delete-orphan")
+    food_vitamins = relationship("FoodVitamins", back_populates="food_item", uselist=False, cascade="all, delete-orphan")
 
     calories_100g: Mapped[Decimal] = mapped_column(Numeric(7,2), nullable=False)
     carbs_100g: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
@@ -36,15 +36,16 @@ class FoodItem(Base):
     salt_100g: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
 
     barcode: Mapped[str] = mapped_column(nullable=True, unique=True)
-    restaurant_id: Mapped[int] = mapped_column(Integer, ForeignKey("restaurant.id"), nullable=True)
+    restaurant_id: Mapped[int] = mapped_column(Integer, ForeignKey("restaurants.id"), nullable=True)
 
     food_tags: Mapped[List["FoodTag"]] = relationship(back_populates="food_item", cascade="all, delete-orphan")
-    food_allergies: Mapped[List["FoodAllergy"]] = relationship(back_populates="food_item", cascade="all, delete-orphan")
-    servings: Mapped[List["Serving"]] = relationship(back_populates="food_item", cascade="all, delete-orphan")
-    restaurant: Mapped["Restaurant"] = relationship(back_populates="food_tiems")
-    meals_with_this: Mapped[List["MealIngredient"]] = relationship(back_populates="food_item")
-    linked_pantry_item: Mapped["PantryItem"] = relationship(back_populates="linked_food_item", single_parent=True)
-
+    food_allergies: Mapped[List["FoodAllergy"]] = relationship(back_populates="food_item", cascade="all, delete-orphan", overlaps="")
+    servings: Mapped[List["Serving"]] = relationship("Serving", back_populates="food_item", cascade="all, delete-orphan")
+    restaurant: Mapped["Restaurant"] = relationship("Restaurant", back_populates="food_items")
+    meals_with_this: Mapped[List["MealIngredient"]] = relationship("MealIngredient", back_populates="food_item")
+    linked_pantry_item: Mapped["PantryItem"] = relationship("PantryItem", back_populates="linked_food_item", single_parent=True)
+    entries: Mapped[List["FoodEntry"]] = relationship("FoodEntry",back_populates="food")
+    
 class FoodCategory(Base):
     __tablename__ = "food_categories"
 
@@ -58,8 +59,8 @@ class FoodTag(Base):
     food_id: Mapped[int] = mapped_column(Integer, ForeignKey("food_items.id"), nullable=False, primary_key=True)
     tag_id: Mapped[int] = mapped_column(Integer, ForeignKey("tags.id"), nullable=False, primary_key=True)
 
-    food_item: Mapped["FoodItem"] = relationship(back_populates="food_tags")
-    tag: Mapped["Tag"] = relationship(back_populates="food_tags")   
+    food_item: Mapped["FoodItem"] = relationship("FoodItem", back_populates="food_tags")
+    tag: Mapped["Tag"] = relationship("Tag", back_populates="food_tags")   
 
 class FoodAllergy(Base):
     __tablename__ = "food_allergies"
@@ -67,10 +68,10 @@ class FoodAllergy(Base):
     food_id: Mapped[int] = mapped_column(Integer, ForeignKey("food_items.id"), nullable=False, primary_key=True)
     allergy_id: Mapped[int] = mapped_column(Integer, ForeignKey("allergies.id"), nullable=False, primary_key=True)
     
-    food_item: Mapped["FoodItem"] = relationship(back_populates="food_allergies")
-    allergy: Mapped["Allergy"] = relationship(back_populates="food_allergies")
+    food_item: Mapped["FoodItem"] = relationship("FoodItem", back_populates="food_allergies")
+    allergy: Mapped["Allergy"] = relationship("Allergy", back_populates="food_allergies")
 
-    __table_args__ = (PrimaryKeyConstraint('food_id', 'allergy_id'))
+    __table_args__ = (PrimaryKeyConstraint('food_id', 'allergy_id'),)
 
 class FoodVitamins(Base):
     __tablename__ = "food_vitamins"

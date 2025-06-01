@@ -6,7 +6,7 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy import DateTime
 from datetime import datetime
 from typing import List
-from ..users import UserGoal, User
+#from ..users import UserGoal, User
 
 class Goal(Base):
     __tablename__ = "goals"
@@ -14,7 +14,7 @@ class Goal(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     name: Mapped[str] = mapped_column(String, index=True, nullable=False) #weight_loss, weight_gain, maintain, chill
     
-    user_goals: Mapped[List["UserGoal"]] = relationship(back_populates="goal")
+    user_goals: Mapped[List["UserGoal"]] = relationship("UserGoal", back_populates="goal")
     
     #is_active: Mapped[] = mapped_column(Boolean, nullable=False)
 
@@ -24,7 +24,7 @@ class NutritionGoals(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
 
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
-    user: Mapped["User"] = relationship(back_populates="nutrition_goals", single_parent=True)
+    user: Mapped["User"] = relationship("User", back_populates="nutrition_goals", single_parent=True)
 
     calories_goals: Mapped[int] = mapped_column(Integer, nullable=False)
     carbs_goals: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
@@ -44,7 +44,7 @@ class MovementGoals(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
 
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
-    user: Mapped[int] = relationship(back_populates="movement_goals", single_parent=True)
+    user: Mapped["User"] = relationship("User", back_populates="movement_goals", single_parent=True)
 
     cals_burned: Mapped[Decimal] = mapped_column(Numeric(6,1), nullable=False)
     stepCount: Mapped[int] = mapped_column(Integer, nullable=False)

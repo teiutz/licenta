@@ -6,7 +6,7 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy import DateTime
 from datetime import datetime
 from typing import List, Optional
-from ..users import User
+#from ..users import User
 class DailyNutritionStats(Base):
     __tablename__ = "nutrition-stats-daily"
 
@@ -15,7 +15,7 @@ class DailyNutritionStats(Base):
     day: Mapped[datetime] = mapped_column(Date, nullable=False, index=True)
 
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
-    user: Mapped["User"] = relationship(back_populates="user_daily_nutrition_stats", single_parent=True)
+    user: Mapped["User"] = relationship("User",back_populates="user_daily_nutrition_stats", single_parent=True)
 
     calories_consumed: Mapped[int] = mapped_column(Integer, nullable=False)
     carbs_consumed: Mapped[Decimal] = mapped_column(Numeric(5, 2), nullable=False)
@@ -52,7 +52,7 @@ class DailyVitaminsStats(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
 class DailyMovementStats(Base):
-    __tablename__ = "workouts"
+    __tablename__ = "movement-stats-daily"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
 

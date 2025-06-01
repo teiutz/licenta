@@ -16,10 +16,10 @@ class FoodItemBase(BaseModel):
     sugar_100g: Optional[float]
     salt_100g: Optional[float]
     barcode: Optional[str] = None
+    restaurant_id: Optional[int] = None
 
 class FoodItemCreate(FoodItemBase):
-    user_id: Optional[int] = None
-    restaurant_id: Optional[int] = None
+    pass
 
 class FoodItemRead(FoodItemBase):
     id: int

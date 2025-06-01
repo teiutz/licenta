@@ -1,28 +1,34 @@
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException
+import traceback
 from . import models
 from . import schemas
 
 # ------- User Credentials --------
-def create_user(db: Session, user: schemas.UserCreate, hashed_password: str):
+def create_user(db: Session, user: schemas.UserCreate, create_hashed_password: str):
     try:
-        with db.begin():
-            db_user = models.User(
-                username=user.username,
-                email=user.email,
-                hashed_password=hashed_password,
-                profile_image_url=user.profile_image_url
-            )
-            db.add(db_user)
-            db.flush()
+        db_user = models.User(
+            username=user.username,
+            email=user.email,
+            profile_image_url=user.profile_image_url,
+            hashed_password=create_hashed_password
+        )
+        db.add(db_user)
+        db.flush()
         db.refresh(db_user)
         return db_user
-    except Exception:
+    except Exception as e:
+        print("Error creating user:", e)
+        traceback.print_exc() 
         raise HTTPException(status_code=500, detail="User creation failed")
     
 
 def get_user_by_id(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
+
+def get_user_by_email(db: Session, email: str):
+    return db.query(models.User).filter(models.User.email == email).first()
+
 
 def update_user(db: Session, db_user: models.User, update_data: schemas.UserUpdate):
     data = update_data.model_dump(exclude_unset=True)
@@ -46,20 +52,20 @@ def delete_user(db:Session, user_id: int):
 
 #-------- User Details -----------
 
-def add_user_details(db: Session, user_details: schemas.UserDetailsCreate):
+def create_user_details(db: Session, user_details: schemas.UserDetailsCreate, current_user_id: int):
      try:
-        with db.begin():
-            db_user_details = models.UserDetails(
-                first_name=user_details.first_name,
-                last_name=user_details.last_name,
-                birthdate= user_details.birthdate
-            )
-            db.add(db_user_details)
-            db.flush()
+        db_user_details = models.UserDetails(
+            user_id=current_user_id,
+            first_name=user_details.first_name,
+            last_name=user_details.last_name,
+            birthdate= user_details.birthdate
+        )
+        db.add(db_user_details)
+        db.flush()
         db.refresh(db_user_details)
         return db_user_details
      except Exception:
-        raise HTTPException(status_code=500, detail="User creation failed")
+        raise HTTPException(status_code=500, detail="User details addition failed")
      
 def get_user_details_by_id(db: Session, user_id: int):
     db_user_details = db.query(models.UserDetails).filter(user_id == user_id).first()
@@ -77,6 +83,39 @@ def update_user_details(db:Session, db_user_details: models.User, user_details: 
     db.refresh(db_user_details)
 
     return db_user_details
+
+
+def create_user_diet(db: Session, user_diet: schemas.UserDietCreate, current_user_id: int):
+     try:
+        db_user_diet = models.UserDiet(
+            user_id=current_user_id,
+            diet_id=user_diet.diet_id,
+            is_active=True
+        )
+
+        db.add(db_user_diet)
+        db.flush()
+        db.refresh(db_user_diet)
+
+        #previous = db.query(models.UserDiet).filter(models.UserDiet.is_active == True, models.UserDiet.id != db_user_diet.id)
+        #if previous:
+        #   setattr(previous, "is_active", False)
+
+        return db_user_diet
+     except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="User diet addition failed")
+     
+
+
+
+
+
+
+
+
+
+
 
 
 

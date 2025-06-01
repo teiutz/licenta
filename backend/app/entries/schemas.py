@@ -1,34 +1,81 @@
 from pydantic import BaseModel, Field
 from datetime import datetime,timezone,date
+from decimal import Decimal
 from typing import Optional
 from ..foods import FoodItemRead, FoodVitaminsRead
 from ..meals import MealRead
 
-class FoodEntryCreate(BaseModel):
-    user_id: int
+# --------- FOOD ENTRY --------- #
+class FoodEntryBase(BaseModel):
+    food_id: int
+    serving_id: Optional[int] = Field(description= "Predefined serving option")
+    meal_of_the_day_id: int = Field(description= "Meal of the day(e.g breakfast, lunch, dinner, etc.)")
     entry_date: date
-    
+    quantity_g: Decimal = Field(description= "Quantity in grams")
 
-class FoodEntryRead(BaseModel):
+class FoodEntryCreate(FoodEntryBase):
+    pass
+
+class FoodEntryRead(FoodEntryBase):
     id: int
-    food: str
-    quantity_g: float
-    entry_date: Optional[date]
+    user_id: int
 
-    food: Optional[FoodItemRead]
-    vitamins: Optional[FoodVitaminsRead]
+    # food: Optional[FoodItemRead]
+    # serving: Optional[ServingRead]
+    # meal_of_the_day: Optional[MealOfTheDayRead]
+    # user: Optional[UserRead]
+
+    created_at: datetime
+    updated_at: datetime
     class Config:
         orm_mode = True
 
+class FoodEntryUpdate(BaseModel):
+    serving_id: Optional[int] = None
+    meal_of_the_day_id: Optional[int] = None 
+    entry_date: Optional[date] = None
+    quantity_g: Optional[Decimal] = None
 
-class MealEntryCreate(BaseModel):
-    user_id: int
+# --------- MEAL OF THE DAY --------- #
+class MealOfTheDayBase(BaseModel):
+    name: str
+
+class MealOfTheDayCreate(BaseModel):
+    pass
+
+class MealOfTheDayRead(BaseModel):
+    id: int
+    name: str
+    class Config:
+        orm_mode = True
+
+class MealOfTheDayUpdate(BaseModel):
+    name: Optional[str] = None
+
+# --------- MEAL ENTRY --------- #
+class MealEntryBase(BaseModel):
+    meal_id: int
+    meal_of_the_day_id: int
+    quantity_g: Decimal = Field(description="Quantity in grams eaten of the meal")
     entry_date: date
+class MealEntryCreate(BaseModel):
+    pass
 
 class MealEntryRead(BaseModel):
     id: int
+    user_id: int
+    meal_of_the_day: MealOfTheDayRead
+
+    #meal: MealRead
+    #serving: ServingRead
+    #meal_of_the-
+    #user: Optional[UserRead]
+
     
-    meal_name: str
-    meal: Optional[MealRead]
     class Config:
         orm_mode = True
+
+class MealEntryUpdate(BaseModel):
+    quantity_g: Optional[Decimal]
+
+

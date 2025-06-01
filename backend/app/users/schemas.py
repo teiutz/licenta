@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 from datetime import datetime,timezone,date
 from typing import Optional
-
+from ..common.schemas import DietRead
 
 # ---- user credentials ----
 #base
@@ -43,17 +43,16 @@ class UserDetailsUpdate(BaseModel):
 
 # ---- user diet details ----
 class UserDietCreate(BaseModel):
-    diet_type: str
-    is_active: bool
+    diet_id: int
 
-class UserDietRead(UserDietCreate):
+class UserDietRead(BaseModel):
     id: int
+    diet: DietRead
     class Config:
         orm_mode = True
 
 class UserDietUpdate(BaseModel):
-    diet_type: Optional[str] = None
-    is_active: Optional[bool] = None
+    diet_id: Optional[int] = None
 
 
 # ---- user goals ----

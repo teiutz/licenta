@@ -6,14 +6,14 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy import DateTime
 from datetime import datetime
 from typing import List
-from ..common import Diet, Allergy
-from ..goals import Goal
-from ..foods import FoodItem
-from ..goals import NutritionGoals, MovementGoals
-from ..meals import Meal
-from ..pantry import PantryItemEntry
-from ..stats import DailyNutritionStats
-
+#from ..common.models import Diet, Allergy
+#from ..goals.models import Goal
+#from ..foods.models import FoodItem
+#from ..goals.models import NutritionGoals, MovementGoals
+#from ..meals.models import Meal
+#from ..pantry.models import PantryItemEntry
+#from ..stats.models import DailyNutritionStats
+#from ..entries.models import FoodEntry
 class User(Base):
     __tablename__ = "users"
 
@@ -27,15 +27,15 @@ class User(Base):
     user_goals: Mapped["UserGoal"] = relationship(back_populates="user")
     user_diets: Mapped[List["UserDiet"]] = relationship(back_populates="user")
     user_allergies: Mapped[List["UserAllergy"]] = relationship(back_populates="user")
-    user_created_food_items: Mapped[List["FoodItem"]] = relationship(back_populates="user")
-    user_created_meals: Mapped[List["Meal"]] = relationship(back_populates="user")
-    nutrition_goals: Mapped["NutritionGoals"] = relationship(back_populates="user")
-    movement_goals: Mapped["MovementGoals"]
-    user_daily_nutrition_stats: Mapped[List["DailyNutritionStats"]] = relationship(back_populates="user")
+    user_created_food_items: Mapped[List["FoodItem"]] = relationship("FoodItem", back_populates="user")
+    user_created_meals: Mapped[List["Meal"]] = relationship("Meal", back_populates="user")
+    nutrition_goals: Mapped["NutritionGoals"] = relationship("NutritionGoals", back_populates="user")
+    movement_goals: Mapped["MovementGoals"] = relationship("MovementGoals", back_populates="user")
+    user_daily_nutrition_stats: Mapped[List["DailyNutritionStats"]] = relationship("DailyNutritionStats", back_populates="user")
 
-
-    pantry_item_entries: Mapped[List["PantryItemEntry"]] = relationship(back_populates="pantry_item")
-
+    pantry_item_entries: Mapped[List["PantryItemEntry"]] = relationship("PantryItemEntry", back_populates="user")
+    food_entries: Mapped[List["FoodEntry"]] = relationship("FoodEntry", back_populates="user")
+    meal_entries: Mapped[List["MealEntry"]] = relationship("MealEntry", back_populates="user")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
@@ -54,7 +54,7 @@ class UserDetails(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
-    __table_args__ = (UniqueConstraint("user_id"))
+    __table_args__ = (UniqueConstraint("user_id"),)
 
 class UserGoal(Base):
     __tablename__ = "user_goals"
@@ -67,8 +67,8 @@ class UserGoal(Base):
     goal_weight: Mapped[Decimal] = mapped_column(Numeric(5, 1), nullable=False)
     is_active: Mapped[bool] = mapped_column(nullable=False, default=False)
     
-    user: Mapped["User"] = relationship(back_populates="user_goals")
-    goal: Mapped["Goal"] = relationship(back_populates="user_goals")
+    user: Mapped["User"] = relationship("User", back_populates="user_goals")
+    goal: Mapped["Goal"] = relationship("Goal", back_populates="user_goals")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
@@ -82,7 +82,7 @@ class UserDiet(Base):
     is_active: Mapped[bool] = mapped_column(nullable=False, default=False)
 
     user: Mapped["User"] = relationship(back_populates="user_diets")
-    diet: Mapped["Diet"] = relationship(back_populates="user_diets")
+    diet: Mapped["Diet"] = relationship("Diet", back_populates="user_diets")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
@@ -99,14 +99,14 @@ class UserAllergy(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     is_active: Mapped[bool] = mapped_column(nullable=False, default=False)
 
-    user: Mapped["User"] = relationship(back_populates="user_allergies")
-    allergy: Mapped["Allergy"] = relationship(back_populates="user_allergies")
+    user: Mapped["User"] = relationship("User",back_populates="user_allergies")
+    allergy: Mapped["Allergy"] = relationship("Allergy", back_populates="user_allergies")
 
     created_at: Mapped[datetime] = mapped_column(nullable=False, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(nullable=False, default=func.now(), onupdate=func.now())
 
 class MeasurementBlueprint(Base):
-    __tablename__ = "measurement_blueprint"
+    __tablename__ = "measurement_blueprints"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     
@@ -115,13 +115,13 @@ class MeasurementBlueprint(Base):
     name: Mapped[str] = mapped_column(String, nullable=False)
     unit: Mapped[str] = mapped_column(String, nullable=False)
 
-    entries: Mapped[List["MeasurementEntry"]] = relationship(backref="blueprint")
+    entries: Mapped[List["MeasurementEntry"]] = relationship("MeasurementEntry",back_populates="blueprint")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
 
 class MeasurementEntry(Base):
-    __tablename__ = "measurement_entry"
+    __tablename__ = "measurement_entries"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
 
@@ -131,7 +131,7 @@ class MeasurementEntry(Base):
     value: Mapped[Decimal] = mapped_column(Numeric(5,2), nullable=False)
     date: Mapped[int] = mapped_column(DateTime, default=func.now(), nullable=False)
 
-    blueprint: Mapped["MeasurementBlueprint"] = relationship(back_populates="entries")
+    blueprint: Mapped["MeasurementBlueprint"] = relationship("MeasurementBlueprint",back_populates="entries")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())

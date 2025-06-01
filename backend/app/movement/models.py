@@ -6,7 +6,7 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy import DateTime
 from datetime import datetime
 from typing import List, Optional
-from ..common import Tag
+#from ..common import Tag
 # SCHIMBARIII CU MAP
 
 class Workout(Base):
@@ -28,7 +28,7 @@ class WorkoutTag(Base):
     tag_id: Mapped[int] = mapped_column(ForeignKey("tags.id"), primary_key=True)
 
     workout: Mapped["Workout"] = relationship(back_populates="workout_tags")
-    tag: Mapped["Tag"] = relationship(back_populates="workout_tags")
+    tag: Mapped["Tag"] = relationship("Tag",back_populates="workout_tags")
 
 class WorkoutCategory(Base):
     __tablename__ = "workout_categories"

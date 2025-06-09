@@ -21,7 +21,7 @@ class Allergy(Base):
     #foods: Mapped[List["FoodItem"]] = relationship("FoodItem", secondary="food_allergies", backref="allergy")
 
     user_allergies: Mapped[List["UserAllergy"]] = relationship("UserAllergy",back_populates="allergy")
-    food_allergies: Mapped[List["FoodAllergy"]] = relationship("FoodAllergy", back_populates="allergy")
+    base_food_allergies: Mapped[List["BaseFoodAllergy"]] = relationship("BaseFoodAllergy", back_populates="allergy")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
@@ -35,25 +35,23 @@ class Diet(Base):
     name: Mapped[str] = mapped_column(unique=True, nullable=False)
 
     user_diets: Mapped[List["UserDiet"]] = relationship("UserDiet", back_populates="diet")
-    
+    base_food_diets: Mapped[List["BaseFoodDiet"]] = relationship("BaseFoodDiet", back_populates="diet")
 
 #       --------------- SERVING ---------------
-class Serving(Base):
-    __tablename__ = "servings"
+# class Serving(Base):
+#     __tablename__ = "servings"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+#     id: Mapped[int] = mapped_column(primary_key=True, index=True)
 
-    food_id: Mapped[int] = mapped_column(Integer, ForeignKey("food_items.id"), nullable=False)
-    food_item: Mapped["FoodItem"] = relationship("FoodItem", back_populates="servings")
+#     food_id: Mapped[int] = mapped_column(Integer, ForeignKey("food_items.id"), nullable=False)
+#     food_item: Mapped["FoodItem"] = relationship("FoodItem", back_populates="servings")
 
-    size: Mapped[Decimal] = mapped_column(Numeric(6,2), nullable=True)    
-    size_unit: Mapped[str] = mapped_column(String, nullable=True) #g, ml, etc.  
-    serving_unit: Mapped[str] = mapped_column(String, nullable=True) #box, bar, piece      
+#     size: Mapped[Decimal] = mapped_column(Numeric(6,2), nullable=True)    
+#     size_unit: Mapped[str] = mapped_column(String, nullable=True) #g, ml, etc.  
+#     serving_unit: Mapped[str] = mapped_column(String, nullable=True) #box, bar, piece      
 
-    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
-
-
+#     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+#     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
     
 #       --------------- TAG ---------------
 class Tag(Base):
@@ -64,7 +62,7 @@ class Tag(Base):
     name: Mapped[str] = mapped_column(String, nullable=False, index=True)
     category_id: Mapped[int] = mapped_column(Integer, ForeignKey("tag_categories.id"), nullable=False)
 
-    food_tags: Mapped[List["FoodTag"]] = relationship(back_populates="tag")
+    base_food_tags: Mapped[List["BaseFoodTag"]] = relationship("BaseFoodTag", back_populates="tag")
     meal_tags: Mapped[List["MealTag"]] = relationship(back_populates="tag")
     workout_tags: Mapped[List["WorkoutTag"]] = relationship(back_populates="tag")
 

@@ -5,6 +5,7 @@ from datetime import datetime, time, timedelta
 from app.users.router import user_router 
 from app.security.router import security_router
 from app import all_models
+
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)

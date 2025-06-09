@@ -6,14 +6,7 @@ from sqlalchemy.orm import mapped_column
 from sqlalchemy import DateTime
 from datetime import datetime
 from typing import List
-#from ..common.models import Diet, Allergy
-#from ..goals.models import Goal
-#from ..foods.models import FoodItem
-#from ..goals.models import NutritionGoals, MovementGoals
-#from ..meals.models import Meal
-#from ..pantry.models import PantryItemEntry
-#from ..stats.models import DailyNutritionStats
-#from ..entries.models import FoodEntry
+
 class User(Base):
     __tablename__ = "users"
 
@@ -33,9 +26,7 @@ class User(Base):
     movement_goals: Mapped["MovementGoals"] = relationship("MovementGoals", back_populates="user")
     user_daily_nutrition_stats: Mapped[List["DailyNutritionStats"]] = relationship("DailyNutritionStats", back_populates="user")
 
-    pantry_item_entries: Mapped[List["PantryItemEntry"]] = relationship("PantryItemEntry", back_populates="user")
-    food_entries: Mapped[List["FoodEntry"]] = relationship("FoodEntry", back_populates="user")
-    meal_entries: Mapped[List["MealEntry"]] = relationship("MealEntry", back_populates="user")
+    items_in_pantry: Mapped[List["PantryInventory"]] = relationship(back_populates="user")
 
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
@@ -125,7 +116,7 @@ class MeasurementEntry(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
 
-    blueprint_id: Mapped[int] = mapped_column(Integer, ForeignKey("measurement_blueprint.id"), nullable=False)
+    blueprint_id: Mapped[int] = mapped_column(Integer, ForeignKey("measurement_blueprints.id"), nullable=False)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
 
     value: Mapped[Decimal] = mapped_column(Numeric(5,2), nullable=False)

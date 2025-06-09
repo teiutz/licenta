@@ -3,8 +3,7 @@ from datetime import datetime,timezone,date
 from typing import Optional
 from ..common.schemas import DietRead
 
-# ---- user credentials ----
-#base
+
 class UserBase(BaseModel):
     username: str
     email: str

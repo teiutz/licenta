@@ -24,7 +24,7 @@ class DietUpdate(BaseModel):
 class AllergyCreate(BaseModel):
     name: str
 
-class AllergyRead(DietCreate):
+class AllergyRead(AllergyCreate):
     id: int
     class Config:
         orm_mode = True
@@ -32,23 +32,6 @@ class AllergyRead(DietCreate):
 class AllergyUpdate(BaseModel):
     name: Optional[str] = None
 
-
-#--------------- SERVING ---------------
-
-class ServingCreate(BaseModel):
-    size: Decimal
-    size_unit: str
-    serving_unit: str
-
-class ServingRead(ServingCreate):
-    id: int
-    class Config:
-        orm_mode = True
-
-class ServingUpdate(BaseModel):
-    size: Optional[Decimal]=None
-    size_unit: Optional[str]=None
-    seving_unit: Optional[str]=None
 
 #--------------- TAG ---------------
 

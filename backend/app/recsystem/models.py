@@ -13,8 +13,7 @@ class UserFoodFrequency(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), primary_key=True)
-    food_id: Mapped[int] = mapped_column(Integer, ForeignKey("food_items.id"), primary_key=True)
-
+    base_food_id: Mapped[int] = mapped_column(ForeignKey("base_foods.id"), nullable=False, unique=True)
 
     count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
@@ -28,7 +27,7 @@ class UserTagFrequency(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
-    tag_id: Mapped[int] = mapped_column(Integer, ForeignKey("tags.id"))
+    tag_id: Mapped[int] = mapped_column(Integer, ForeignKey("tags.id"), unique=True)
 
     count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
@@ -41,7 +40,7 @@ class UserMealFrequency(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
-    meal_id: Mapped[int] = mapped_column(Integer, ForeignKey("meals.id"))
+    meal_id: Mapped[int] = mapped_column(Integer, ForeignKey("meals.id"), unique=True)
 
     count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
@@ -53,7 +52,9 @@ class UserFoodPreference(Base):
     __tablename__ = "user_food_preferences"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    food_id: Mapped[int] = mapped_column(Integer, ForeignKey("food_items.id"))
+    base_food_id: Mapped[Optional[int]] = mapped_column(ForeignKey("base_foods.id"), nullable=True, unique=True)
+    food_item_id: Mapped[Optional[int]] = mapped_column(ForeignKey("food_items.id"), nullable=True, unique=True)
+
 
     preference: Mapped[int] = mapped_column(Integer, nullable=False, default=0) # like = 1, neutral = 0, dislike = -1
 

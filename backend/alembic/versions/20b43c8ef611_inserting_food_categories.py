@@ -18,47 +18,45 @@ branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
 category_table = sa.table(
-    'allergies',
+    'base_food_categories',
     sa.column('name', sa.String())
 )
-
-
 
 def upgrade() -> None:
     op.bulk_insert(
         category_table, 
         [
-                {"name": "Fruits & Juices"},
-                {"name": "Cereal & Pasta"},
-                {"name": "Fats & Oils"},
-                {"name": "Meat"},
-                {"name": "Fish"},
-                {"name": "Dairy & Egg"},
-                {"name": "Plant-Based Drinks"},
-                {"name": "Vegetables"},
-                {"name": "Legumes"},
-                {"name": "Nuts and Seed"},
-                {"name": "Baked Goods"},
-                {"name": "Snacks"},
-                {"name": "Sweets"},
-                {"name": "Restaurant Foods"},
-                {"name": "Fast Foods"},
-                {"name": "Alcoholic Beverages"},
-                {"name": "Other"},
-            ])
-
-
-
+            {"name": "Fruits"},
+            {"name": "Cereal & Pasta"},
+            {"name": "Fats & Oils"},
+            {"name": "Meat"},
+            {"name": "Fish"},
+            {"name": "Dairy & Egg"},
+            {"name": "Plant-Based"},
+            {"name": "Vegetables"},
+            {"name": "Legumes"},
+            {"name": "Nuts & Seeds"},
+            {"name": "Baked Goods"},
+            {"name": "Snacks"},
+            {"name": "Sweets"},
+            {"name": "Sugary Drinks"},
+            {"name": "Restaurant Foods"},
+            {"name": "Fast Foods"},
+            {"name": "Alcoholic Beverages"},
+            {"name": "Spices, Herbs & Condiments"},
+            {"name": "Other"}
+        ]
+    )
 
 
 def downgrade() -> None:
-     op.execute(
+    op.execute(
         """
     DELETE FROM food_categories WHERE name IN (
-        'Fruits & Juices', 'Cereal & Pasta', 'Fats & Oils', 'Meat', 'Fish',
-        'Dairy & Egg', 'Plant-Based Drinks', 'Vegetables', 'Legumes', 'Nuts and Seed',
-        'Baked Goods', 'Snacks', 'Sweets', 'Restaurant Foods', 'Fast Foods',
-        'Alcoholic Beverages', 'Other'
+        'Fruits', 'Cereal & Pasta', 'Fats & Oils', 'Meat', 'Fish',
+        'Dairy & Egg', 'Plant-Based', 'Vegetables', 'Legumes', 'Nuts & Seeds',
+        'Baked Goods', 'Snacks', 'Sweets',  'Sugary Drinks', 'Restaurant Foods', 'Fast Foods',
+        'Alcoholic Beverages', 'Spices, Herbs & Condiments', 'Other'
     )
     """
 )

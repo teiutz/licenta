@@ -4,55 +4,60 @@ from ..database import Base
 from sqlalchemy.orm import relationship, Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy import DateTime
-from datetime import datetime
-from typing import List
-#from ..users import User
-#from ..foods import FoodItem
-class PantryItemEntry(Base):
-    __tablename__ = "pantry_item_entries"
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
-    user: Mapped["User"] = relationship("User",back_populates="pantry_item_entries", single_parent=True)
-    
-    pantry_item_id: Mapped[int] = mapped_column(Integer, ForeignKey("pantry_items.id"), nullable=False)
-    pantry_item: Mapped["PantryItem"] = relationship(back_populates="entries" )
-
-    is_owned: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
-    #how to define a serving?? like "a carton of milk", "a bar of chocolate"
-
-    date_bought: Mapped[datetime] = mapped_column(Date, nullable=True)
-    date_spoiled: Mapped[datetime] = mapped_column(Date, nullable=True)
-    expiration_date: Mapped[datetime] = mapped_column(Date, nullable=True)
-
-    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
+from datetime import datetime, date
+from typing import List, Optional
 
 class PantryItem(Base):
     __tablename__ = "pantry_items"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    category_id: Mapped[int] = mapped_column(Integer, ForeignKey("pantry_item_categories.id"), nullable=False)
-    category: Mapped["PantryItemCategory"] = relationship(back_populates="pantry_items", single_parent=True)
+   
+    base_food_id: Mapped[int] = mapped_column(ForeignKey("base_foods.id"), unique=True)
+    food_item_id: Mapped[Optional[int]] = mapped_column(ForeignKey("food_items.id"), unique=True)
 
-    entries: Mapped[List["PantryItemEntry"]] = relationship(back_populates="pantry_item")
+    base_food: Mapped["BaseFood"] = relationship(back_populates="pantry_item")
+    food_item: Mapped[List["FoodItem"]] = relationship(back_populates="pantry_items")
 
-    days_in_freezer: Mapped[int] = mapped_column(Integer, nullable=True)
-    days_in_fridge: Mapped[int] = mapped_column(Integer, nullable=True)
-    days_on_shelf: Mapped[int] = mapped_column(Integer, nullable=True)
+    location: Mapped[str] = mapped_column(String, nullable= False)
 
-    serving_size: Mapped[Decimal] = mapped_column(Numeric(6, 2), nullable=True)
-    serving_unit: Mapped[str] = mapped_column(String, nullable=True)
+    days_in_freezer: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    days_in_fridge: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    days_on_shelf: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
 
-    food_id: Mapped[int] = mapped_column(Integer, ForeignKey("food_items.id"), nullable=True)
-    linked_food_item: Mapped["FoodItem"] = relationship("FoodItem",back_populates="linked_pantry_item", single_parent=True)
+    days_in_freezer_opened: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    days_in_fridge_opened: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    days_on_shelf_opened: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
 
-class PantryItemCategory(Base):
-    __tablename__ = "pantry_item_categories"
+    inventory_item: Mapped["PantryInventory"] = relationship(back_populates="pantry_item")
+
+class PantryInventory(Base):
+    __tablename__ = "pantry_inventory"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
 
-    name: Mapped[str] = mapped_column(String, index=True)
-    pantry_items: Mapped[List["PantryItem"]] = relationship(back_populates="category")
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    user: Mapped["User"] = relationship(back_populates="items_in_pantry")
 
+    pantry_item_id: Mapped[int] = mapped_column(ForeignKey("pantry_items.id"))
+    pantry_item: Mapped["PantryItem"] = relationship(back_populates="inventory_item")
+    
+    purchase_date: Mapped[date] = mapped_column(nullable=False)
+    date_opened: Mapped[Optional[date]] = mapped_column(nullable=True)
+    exp_date: Mapped[date] = mapped_column(nullable=False)
+    finish_date: Mapped[Optional[date]] = mapped_column(nullable=True)
+
+    current_qty: Mapped[Optional[Decimal]] = mapped_column(Numeric(6,2), nullable=True)
+    qty_unit: Mapped[Optional[String]] = mapped_column(String, nullable=True)
+    
+    packaging_qty: Mapped[int] = mapped_column(nullable=False)
+    packaging: Mapped[str] = mapped_column(String, nullable=False)
+
+    is_active: Mapped[bool] = mapped_column(nullable=False, default=True)
+
+    notes: Mapped[str] = mapped_column(nullable=True)
+
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now(), onupdate=func.now())
+
+    
+   

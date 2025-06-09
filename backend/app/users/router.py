@@ -56,6 +56,8 @@ def get_user_details_route(db: Session = Depends(get_db),current_user: User = De
 def update_user_details_route(update_data: schemas.UserDetailsUpdate,  db: Session = Depends(get_db),current_user: User = Depends(get_current_user)):
     if not current_user:
         raise HTTPException(status_code=404, detail="User not found")
+    if not crud.get_user_details_by_id(db=db, user_id=current_user.id):
+        raise HTTPException(status_code=404, detail="User details not found")
 
     return crud.update_user_details(db, db.query(models.UserDetails).filter(models.UserDetails.user_id == current_user.id).first(), update_data)
 

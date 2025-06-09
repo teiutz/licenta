@@ -68,7 +68,10 @@ def create_user_details(db: Session, user_details: schemas.UserDetailsCreate, cu
         raise HTTPException(status_code=500, detail="User details addition failed")
      
 def get_user_details_by_id(db: Session, user_id: int):
-    db_user_details = db.query(models.UserDetails).filter(user_id == user_id).first()
+    db_user_details = db.query(models.UserDetails).filter(models.UserDetails.user_id == user_id).first()
+
+    if not db_user_details:
+        raise HTTPException(status_code=404, detail="User details not found")
 
     return db_user_details
 

@@ -54,7 +54,7 @@ def downgrade() -> None:
     DELETE FROM allergies WHERE name IN (
         'Milk', 'Eggs', 'Nuts', 'Peanuts', 'Shellfish',
         'Wheat', 'Soy', 'Fish', 'Sesame', 'Peach',
-        'Banana', 'Garlic', 'Celery', 'Avocado', 'Strawberry''
+        'Banana', 'Garlic', 'Celery', 'Avocado', 'Strawberry'
     )
     """
     )

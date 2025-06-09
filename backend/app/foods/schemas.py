@@ -1,72 +1,15 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, HttpUrl, model_validator
 from datetime import datetime,timezone,date
 from typing import Optional, List
+from decimal import Decimal
 
+class FoodReferenceMixin(BaseModel):
+    base_food_id: Optional[int] = None
+    food_item_id: Optional[int] = None
 
-class FoodItemBase(BaseModel):
-    name: str
-    brand: Optional[str] = None
-    category_id: int
-    calories_100g: float
-    carbs_100g: float
-    fats_100g: float
-    saturated_fats_100g: Optional[float] = None
-    protein_100g: float
-    fibre_100g: Optional[float]
-    sugar_100g: Optional[float]
-    salt_100g: Optional[float]
-    barcode: Optional[str] = None
-    restaurant_id: Optional[int] = None
-
-class FoodItemCreate(FoodItemBase):
-    pass
-
-class FoodItemRead(FoodItemBase):
-    id: int
-    category: Optional[str]  
-    tags: List[str] = [] #default value is an empty list
-    allergies: List[str] = []
-
-    class Config:
-        orm_mode = True
-
-class FoodItemUpdate(BaseModel):
-    name: Optional[str] = None
-    brand: Optional[str] = None
-    category_id: Optional[int] = None
-    calories_100g: Optional[float] = None
-    carbs_100g: Optional[float] = None
-    fats_100g: Optional[float] = None
-    saturated_fats_100g: Optional[float] = None
-    protein_100g: Optional[float] = None
-    fibre_100g: Optional[float] = None
-    sugar_100g: Optional[float] = None
-    salt_100g: Optional[float] = None
-    barcode: Optional[str] = None
-
-
-class FoodCategoryRead(BaseModel):
-    id: int
-    name: str
-
-    class Config:
-        orm_mode = True
-
-class FoodVitaminsRead(BaseModel):
-    id: int
-    food_id: int
-    vit_a_100g: int
-    vit_c_100g: int
-    vit_d_100g: int
-    vit_e_100g: int
-    vit_k_100g: int
-    vit_b1_100g: int
-    vit_b6_100g: int
-    vit_b9_100g: int
-    vit_b12_100g: float
-    vit_b3_100g: int
-
-    class Config:
-        orm_mode = True
-
-
+    @model_validator(mode="after")
+    def validate_food_reference(cls, model):
+        if (model.base_food_id is None and model.food_item_id is None) or \
+           (model.base_food_id is not None and model.food_item_id is not None):
+            raise ValueError("Provide either base_food_id or food_item_id, not both.")
+        return model
